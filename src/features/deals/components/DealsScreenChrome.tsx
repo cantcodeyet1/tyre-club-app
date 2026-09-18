@@ -16,7 +16,7 @@ export function DealsScreen({
   return (
     <main
       className={cn(
-        'min-h-screen bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary',
+        'min-h-full bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary',
         className,
       )}
     >
@@ -65,17 +65,20 @@ export function DealsBackHeader({ title }: { title: string }) {
 export function DealsPrimaryButton({
   children,
   className,
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
   return (
     <button
       className={cn(
-        'h-12 rounded-[10px] bg-yellow-cta text-[15px] font-bold text-textPrimary shadow-yellow',
+        'h-12 rounded-[10px] bg-yellow-cta text-[15px] font-bold text-textPrimary shadow-yellow transition-transform active:scale-[0.98]',
         className,
       )}
       type="button"
+      onClick={onClick}
     >
       {children}
     </button>

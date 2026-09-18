@@ -14,7 +14,7 @@ export function TripScreen({
   return (
     <main
       className={cn(
-        'min-h-screen bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary',
+        'min-h-full bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary',
         className,
       )}
     >

@@ -15,7 +15,7 @@ export function AuthScreen({
   return (
     <MobileFrame>
       <main
-        className={cn('min-h-screen bg-surface text-textPrimary', className)}
+        className={cn('min-h-full bg-surface text-textPrimary', className)}
       >
         {children}
       </main>
@@ -31,7 +31,7 @@ export function SetupScreen({
   className?: string;
 }) {
   return (
-    <main className={cn('min-h-screen bg-surface text-textPrimary', className)}>
+    <main className={cn('min-h-full bg-surface text-textPrimary', className)}>
       {children}
     </main>
   );
@@ -211,15 +211,19 @@ export function SocialButtons({
         G
       </button>
       <button
-        aria-label="Continue with Facebook"
-        className="grid h-[36px] place-items-center rounded-[6px] bg-[#F8F8F8] text-[26px] font-black text-[#4A66F5]"
+        aria-label="Continue with Facebook (coming soon)"
+        className="grid h-[36px] place-items-center rounded-[6px] bg-[#F8F8F8] text-[26px] font-black text-[#4A66F5] opacity-40"
+        disabled
+        title="Coming soon"
         type="button"
       >
         f
       </button>
       <button
-        aria-label="Continue with Apple"
-        className="grid h-[36px] place-items-center rounded-[6px] bg-[#F8F8F8] text-[24px] font-black text-textPrimary"
+        aria-label="Continue with Apple (coming soon)"
+        className="grid h-[36px] place-items-center rounded-[6px] bg-[#F8F8F8] text-[24px] font-black text-textPrimary opacity-40"
+        disabled
+        title="Coming soon"
         type="button"
       >
         a

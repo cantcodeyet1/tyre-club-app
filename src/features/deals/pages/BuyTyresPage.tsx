@@ -12,7 +12,7 @@ import {
 
 export default function BuyTyresPage() {
   return (
-    <DealsScreen>
+    <DealsScreen className="pb-8">
       <DealsBackHeader title="Buy tyres" />
 
       <section className="mb-5 rounded-[14px] bg-[#1D1D1D] p-4 text-surface">

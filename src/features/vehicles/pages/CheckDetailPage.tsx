@@ -446,7 +446,7 @@ export default function CheckDetailPage() {
 
   if (checksQuery.isLoading || vehicleQuery.isLoading) {
     return (
-      <VehicleChrome>
+      <VehicleChrome className="pb-8">
         <LoadingState label="Loading check" />
       </VehicleChrome>
     );
@@ -454,7 +454,7 @@ export default function CheckDetailPage() {
 
   if (!check || !vehicle || !vehicleId) {
     return (
-      <VehicleChrome>
+      <VehicleChrome className="pb-8">
         <ErrorState message="Check could not be found." />
       </VehicleChrome>
     );
@@ -477,7 +477,7 @@ export default function CheckDetailPage() {
   };
 
   return (
-    <VehicleChrome>
+    <VehicleChrome className="pb-8">
       <div className="pt-[25px]" data-version={version}>
         <VehiclePanel className="p-3">
           <div className="mb-4 flex items-center gap-2">

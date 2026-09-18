@@ -23,6 +23,9 @@ const VehicleSetupWizard = lazy(
   () => import('../features/onboarding/pages/VehicleSetupWizard'),
 );
 const HomePage = lazy(() => import('../features/home/pages/HomePage'));
+const NotificationsPage = lazy(
+  () => import('../features/notifications/pages/NotificationsPage'),
+);
 const VehicleListPage = lazy(
   () => import('../features/vehicles/pages/VehicleListPage'),
 );
@@ -99,6 +102,7 @@ export function AppRoutes() {
               element={<VehicleSetupWizard />}
             />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/vehicles" element={<VehicleListPage />} />
             <Route path="/vehicles/add" element={<AddVehiclePage />} />
             <Route

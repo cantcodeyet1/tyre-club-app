@@ -44,6 +44,9 @@ desktop.ini
 !.vscode/extensions.json
 !.vscode/settings.json
 
+# Claude Code session runtime state
+.claude/*.lock
+
 # Capacitor native build artifacts
 android/.gradle/
 android/app/build/

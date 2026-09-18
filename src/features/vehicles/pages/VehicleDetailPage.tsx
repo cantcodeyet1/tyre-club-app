@@ -405,7 +405,7 @@ export default function VehicleDetailPage() {
 
   if (vehicleQuery.isLoading) {
     return (
-      <VehicleChrome>
+      <VehicleChrome className="pb-8">
         <LoadingState label="Loading vehicle" />
       </VehicleChrome>
     );
@@ -413,14 +413,14 @@ export default function VehicleDetailPage() {
 
   if (vehicleQuery.error || !vehicle || !vehicleId) {
     return (
-      <VehicleChrome>
+      <VehicleChrome className="pb-8">
         <ErrorState message="Vehicle could not be found." />
       </VehicleChrome>
     );
   }
 
   return (
-    <VehicleChrome>
+    <VehicleChrome className="pb-8">
       <VehicleHeader vehicle={vehicle} onRemove={() => setIsDeleteOpen(true)} />
       <VehicleTabs
         active={section}

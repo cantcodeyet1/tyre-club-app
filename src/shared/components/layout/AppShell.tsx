@@ -19,6 +19,13 @@ export function AppShell() {
     '/deals',
   ].includes(location.pathname);
 
+  // The SPA doesn't reload the document on navigation, so the browser
+  // never resets scroll position on its own — without this, going back
+  // from a long page (e.g. MAZ scheme) lands you mid-scroll on Deals.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   useEffect(() => {
     let handle: PluginListenerHandle | undefined;
 

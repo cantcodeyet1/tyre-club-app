@@ -16,7 +16,7 @@ export function VehicleChrome({ children, className }: VehicleChromeProps) {
   return (
     <main
       className={cn(
-        'min-h-screen bg-surface px-[14px] pb-[126px] pt-0 text-textPrimary',
+        'min-h-full bg-surface px-[14px] pb-[126px] pt-0 text-textPrimary',
         className,
       )}
     >
@@ -46,7 +46,7 @@ export function VehicleHeader({
           aria-label="Go back"
           className="mt-1 grid size-5 place-items-center"
           type="button"
-          onClick={() => navigate('/vehicles')}
+          onClick={() => navigate(-1)}
         >
           <ArrowLeft size={20} strokeWidth={2.2} />
         </button>

@@ -13,7 +13,7 @@ export default function ProductsPage() {
   const products = query.data ?? [];
 
   return (
-    <DealsScreen>
+    <DealsScreen className="pb-8">
       <DealsBackHeader title="Products & services" />
 
       <section className="mb-5 rounded-[14px] bg-[#1D1D1D] p-4 text-surface">

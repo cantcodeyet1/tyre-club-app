@@ -40,7 +40,7 @@ const contactItems = [
 
 export default function HelpPage() {
   return (
-    <DealsScreen>
+    <DealsScreen className="pb-8">
       <DealsBackHeader title="Help & contact" />
 
       <section className="mb-5 rounded-[14px] bg-[#1D1D1D] px-5 py-5 text-center text-surface">

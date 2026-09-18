@@ -2,7 +2,7 @@ import { Bell, Home } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../../features/auth/authStore';
-import { useVehicles } from '../../hooks/useAppData';
+import { useChecks, useVehicles } from '../../hooks/useAppData';
 import { Avatar } from '../primitives/Avatar';
 
 const titles: Record<string, string> = {
@@ -21,6 +21,10 @@ export function Header() {
   const navigate = useNavigate();
   const isHome = location.pathname === '/home';
   const vehiclesQuery = useVehicles();
+  const checksQuery = useChecks();
+  const attentionCount = (checksQuery.data ?? []).filter(
+    (check) => check.status === 'danger' || check.status === 'warning',
+  ).length;
   const isVehicleFlow = location.pathname.startsWith('/vehicles');
   const isHealth = location.pathname === '/health';
   const isTripsFlow = location.pathname.startsWith('/trips');
@@ -68,11 +72,14 @@ export function Header() {
               aria-label="Notifications"
               className="relative grid size-[36px] place-items-center text-textPrimary"
               type="button"
+              onClick={() => navigate('/notifications')}
             >
               <Bell size={29} strokeWidth={2.3} />
-              <span className="absolute right-0 top-0 grid size-[18px] place-items-center rounded-full bg-[#FF1564] text-[11px] font-bold leading-none text-surface">
-                3
-              </span>
+              {attentionCount > 0 ? (
+                <span className="absolute right-0 top-0 grid size-[18px] place-items-center rounded-full bg-[#FF1564] text-[11px] font-bold leading-none text-surface">
+                  {attentionCount}
+                </span>
+              ) : null}
             </button>
           ) : null}
           <Link aria-label="Open profile" to="/profile">
@@ -102,9 +109,12 @@ export function Header() {
           aria-label="Notifications"
           className="relative grid size-8 place-items-center rounded-full text-textPrimary"
           type="button"
+          onClick={() => navigate('/notifications')}
         >
           <Bell size={18} strokeWidth={2.2} />
-          <span className="absolute right-1 top-1 size-2 rounded-full bg-[#FF1564]" />
+          {attentionCount > 0 ? (
+            <span className="absolute right-1 top-1 size-2 rounded-full bg-[#FF1564]" />
+          ) : null}
         </button>
         <Link aria-label="Open profile" to="/profile">
           <Avatar name={user?.name} />

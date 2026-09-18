@@ -15,7 +15,7 @@ export function ProfileScreen({
   return (
     <main
       className={cn(
-        'min-h-screen bg-surface px-[18px] pb-8 pt-0 text-textPrimary',
+        'min-h-full bg-surface px-[18px] pb-8 pt-0 text-textPrimary',
         className,
       )}
     >

@@ -241,7 +241,7 @@ export default function HealthPage() {
   const goodChecks = filteredChecks.filter((check) => check.status === 'good');
 
   return (
-    <main className="min-h-screen bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary">
+    <main className="min-h-full bg-surface px-[18px] pb-[126px] pt-0 text-textPrimary">
       <header className="mb-8 mt-[43px] flex items-center gap-3">
         <Heart aria-hidden size={25} strokeWidth={2.2} />
         <h1 className="text-[22px] font-medium leading-none">Health</h1>

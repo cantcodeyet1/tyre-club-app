@@ -11,17 +11,21 @@ type NavItem = {
   wheel?: boolean;
 };
 
+// Percent-of-bar-width positions (derived from the 393px-wide Figma spec:
+// 36.5, 115, 194, 271, 348 / 393). Percentages keep the icons evenly spaced
+// and fully on-screen on phones narrower than the 393px design width,
+// instead of the fixed px offsets clipping the right-most icon.
 const navItems: NavItem[] = [
-  { label: 'Home', path: '/home', icon: Home, center: 36.5 },
+  { label: 'Home', path: '/home', icon: Home, center: 9.29 },
   {
     label: 'Vehicles',
     path: '/vehicles',
     wheel: true,
-    center: 115,
+    center: 29.26,
   },
-  { label: 'Health', path: '/health', icon: Heart, center: 194 },
-  { label: 'Trips', path: '/trips', icon: Map, center: 271 },
-  { label: 'Deals', path: '/deals', icon: Tag, center: 348 },
+  { label: 'Health', path: '/health', icon: Heart, center: 49.36 },
+  { label: 'Trips', path: '/trips', icon: Map, center: 68.96 },
+  { label: 'Deals', path: '/deals', icon: Tag, center: 88.55 },
 ];
 
 function SteeringWheelNavIcon({
@@ -96,7 +100,7 @@ export function BottomNav() {
         {navItems.map(({ center, icon: Icon, label, path, wheel }) => (
           <NavLink
             key={path}
-            style={{ left: center }}
+            style={{ left: `${center}%` }}
             className={({ isActive }) =>
               cn(
                 'absolute top-[28px] flex w-[64px] -translate-x-1/2 flex-col items-center text-center font-inter text-[11px] font-normal leading-none transition',

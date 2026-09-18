@@ -106,7 +106,7 @@ export default function TyreClubHubPage() {
   });
 
   return (
-    <DealsScreen>
+    <DealsScreen className="pb-8">
       <DealsBackHeader title="Branches & hours" />
       <BranchMap />
 

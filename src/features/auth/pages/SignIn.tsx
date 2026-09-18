@@ -73,17 +73,17 @@ export default function SignIn() {
 
   return (
     <AuthScreen>
-      <section className="flex min-h-screen flex-col px-[42px] pb-12 pt-[35px]">
+      <section className="flex flex-col px-[42px] pb-8 pt-[28px]">
         <div className="flex flex-col items-center">
           <DunlopExpressLogo />
-          <TyreClubLogo className="mt-8 size-[82px]" />
+          <TyreClubLogo className="mt-6 size-[82px]" />
         </div>
 
-        <h1 className="mt-[82px] text-[22px] font-black leading-tight">
+        <h1 className="mt-10 text-[22px] font-black leading-tight">
           Sign in your account
         </h1>
 
-        <form className="mt-[68px]" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
           <AuthInput
             autoComplete="email"
             invalid={Boolean(errors.email)}
