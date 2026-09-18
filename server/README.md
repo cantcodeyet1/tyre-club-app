@@ -63,6 +63,31 @@ Password-reset and verify-email links are logged to the server console by defaul
 
 ## Deploying (Render free tier)
 
-A `render.yaml` blueprint lives at the repo root. In the Render dashboard: New -> Blueprint -> connect this repo (needs to be pushed to GitHub first). Render will create the web service from `server/`, using `npm run build` then `npm run start`, running `prisma migrate deploy` automatically. You'll be prompted for `DATABASE_URL`, `CORS_ORIGIN` (your deployed Vercel frontend origin, e.g. `https://tyre-club.vercel.app`), `GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, and `APP_PUBLIC_URL`.
+A `render.yaml` blueprint lives at the repo root — New -> Blueprint in the Render dashboard picks it up automatically. If you're setting the service up manually instead (New -> Web Service), use these settings:
 
-The frontend deploys separately to Vercel — see the root [README.md](../README.md#deploying-vercel--render). Once both are live, update `CORS_ORIGIN` here to the real Vercel URL and `VITE_API_BASE_URL` there to the real Render URL.
+- **Root Directory**: `server`
+- **Build Command**: `npm install --include=dev && npm run build && npx prisma migrate deploy`
+- **Start Command**: `npm run start`
+
+The `--include=dev` matters: Render (like most hosts) sets `NODE_ENV=production` before running the build, which makes plain `npm install` skip `devDependencies` — but `typescript` and all the `@types/*` packages the build needs live there. Without it you'll see a wall of `Cannot find name 'process'` / `Cannot find module 'express'` TypeScript errors and the build fails.
+
+Env vars to set (either via the Blueprint prompts or manually):
+
+```
+NODE_ENV=production
+PORT=4000
+DATABASE_URL=<your Neon connection string>
+JWT_ACCESS_SECRET=<random string>
+JWT_REFRESH_SECRET=<a different random string>
+ACCESS_TOKEN_TTL=15m
+REFRESH_TOKEN_TTL_DAYS=30
+CORS_ORIGIN=<your Vercel frontend URL, once deployed>
+GOOGLE_CLIENT_ID=
+RESEND_API_KEY=
+MAIL_FROM=Tyre Club <onboarding@resend.dev>
+APP_PUBLIC_URL=<same as CORS_ORIGIN>
+```
+
+Generate the two JWT secrets with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` (run it twice).
+
+The frontend deploys separately to Vercel — see the root [README.md](../README.md#deploying-vercel--render). Once both are live, update `CORS_ORIGIN` and `APP_PUBLIC_URL` here to the real Vercel URL and `VITE_API_BASE_URL` there to the real Render URL.
