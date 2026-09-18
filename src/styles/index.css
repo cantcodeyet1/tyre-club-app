@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: theme('colors.textPrimary');
+  background: theme('colors.background');
+  font-family: theme('fontFamily.sans');
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body,
+#root {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: theme('colors.background');
+}
+
+/* Real mobile browsers resize the viewport as the address bar shows/hides,
+   so 100vh leaves a jumping gap — prefer dvh wherever the design uses
+   min-h-screen / h-screen. */
+.min-h-screen {
+  min-height: 100dvh;
+}
+
+.h-screen {
+  height: 100dvh;
+}
+
+/* iOS Safari auto-zooms the page when focusing any input/select/textarea
+   with a computed font-size under 16px. The design uses 13px inputs, so we
+   bump it back up to 16px only at phone widths to keep the zoom from firing,
+   without changing the desktop preview frame. */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid theme('colors.primary.DEFAULT');
+  outline-offset: 2px;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

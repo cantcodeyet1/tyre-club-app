@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String                   @id @default(cuid())
+  name                   String
+  email                  String                   @unique
+  passwordHash           String?
+  googleId               String?                  @unique
+  phone                  String                   @default("")
+  membershipNumber       String                   @unique
+  memberSince            DateTime                 @default(now())
+  avatarUrl              String?
+  emailVerified          Boolean                  @default(false)
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  vehicles               Vehicle[]
+  trips                  Trip[]
+  notificationPrefs      NotificationPreference[]
+  refreshTokens          RefreshToken[]
+  passwordResetTokens    PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model Vehicle {
+  id            String        @id @default(cuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  make          String
+  model         String
+  year          Int
+  registration  String
+  odometerKm    Int
+  tyreSize      String        @default("")
+  colour        String?
+  fuelType      String?
+  transmission  String?
+  status        String        @default("neutral")
+  nextService   String        @default("")
+  complianceDue String        @default("")
+  checksDue     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  checks        HealthCheck[]
+  checkLogs     CheckLogEntry[]
+  trips         Trip[]
+
+  @@index([userId])
+}
+
+model HealthCheck {
+  id              String          @id @default(cuid())
+  vehicleId       String
+  vehicle         Vehicle         @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  category        String
+  title           String
+  dueLabel        String
+  status          String          @default("neutral")
+  lastLogged      String          @default("Not logged yet")
+  detail          String          @default("")
+  frequency       String?
+  nextDue         String?
+  reminderEnabled Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  logs            CheckLogEntry[]
+
+  @@index([vehicleId])
+}
+
+model CheckLogEntry {
+  id             String      @id @default(cuid())
+  vehicleId      String
+  vehicle        Vehicle     @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  checkId        String
+  check          HealthCheck @relation(fields: [checkId], references: [id], onDelete: Cascade)
+  kind           String
+  title          String
+  date           String
+  location       String?
+  notes          String?
+  frontLeft      Int?
+  frontRight     Int?
+  rearLeft       Int?
+  rearRight      Int?
+  complianceType String?
+  insurerName    String?
+  coverType      String?
+  effectiveDate  String?
+  expiryDate     String?
+  createdAt      DateTime    @default(now())
+
+  @@index([checkId])
+  @@index([vehicleId])
+}
+
+model Trip {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicleId     String
+  vehicle       Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  title         String
+  route         String
+  date          String
+  status        String   @default("upcoming")
+  estimatedCost Float    @default(0)
+  actualCost    Float?
+  distanceKm    Int      @default(0)
+  startMileageKm Int?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([vehicleId])
+}
+
+model NotificationPreference {
+  id      String  @id @default(cuid())
+  userId  String
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key     String
+  label   String
+  enabled Boolean @default(true)
+  sortOrder Int   @default(0)
+
+  @@unique([userId, key])
+  @@index([userId])
+}
+
+model Deal {
+  id          String @id
+  title       String
+  description String
+  tag         String
+  route       String
+  sortOrder   Int    @default(0)
+}
+
+model Branch {
+  id      String @id
+  name    String
+  address String
+  hours   String
+  phone   String
+  sortOrder Int  @default(0)
+}
+
+model Product {
+  id          String @id
+  name        String
+  category    String
+  description String
+  sortOrder   Int    @default(0)
+}
