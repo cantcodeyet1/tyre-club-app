@@ -53,7 +53,7 @@ export default function MazSchemePage() {
 
       <div className="grid gap-4">
         <DealsPrimaryButton>Find out more</DealsPrimaryButton>
-        <DealsWhatsAppButton />
+        <DealsWhatsAppButton message="Hi, I would like to know more about the MAZ member scheme." />
       </div>
     </DealsScreen>
   );

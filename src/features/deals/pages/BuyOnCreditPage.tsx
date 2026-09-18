@@ -52,7 +52,7 @@ export default function BuyOnCreditPage() {
 
       <div className="grid gap-4">
         <DealsPrimaryButton>Enquire now</DealsPrimaryButton>
-        <DealsWhatsAppButton />
+        <DealsWhatsAppButton message="Hi, I would like to know more about buying tyres on credit." />
       </div>
     </DealsScreen>
   );

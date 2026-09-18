@@ -63,20 +63,26 @@ function Field({
 function SheetFrame({
   children,
   isOpen,
+  onClose,
 }: {
   children: ReactNode;
   isOpen: boolean;
+  onClose: () => void;
 }) {
   if (!isOpen) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/25">
+    <div
+      className="fixed inset-0 z-50 flex animate-[fade-in_150ms_ease-out] items-end justify-center bg-black/25"
+      onClick={onClose}
+    >
       <section
         aria-modal="true"
-        className="max-h-[619px] w-full max-w-[393px] overflow-y-auto rounded-t-[18px] bg-surface px-[24px] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-8 shadow-phone"
+        className="max-h-[619px] w-full max-w-[393px] animate-[sheet-up_200ms_ease-out] overflow-y-auto rounded-t-[18px] bg-surface px-[24px] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-8 shadow-phone"
         role="dialog"
+        onClick={(event) => event.stopPropagation()}
       >
         <div className="mx-auto mb-6 h-[7px] w-[103px] rounded-full bg-[#D9D9D9]" />
         {children}
@@ -150,7 +156,7 @@ function TyreLogSheet({
   };
 
   return (
-    <SheetFrame isOpen={isOpen}>
+    <SheetFrame isOpen={isOpen} onClose={onClose}>
       <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <h2 className="text-[18px] font-bold leading-none">Log new entry</h2>
@@ -320,7 +326,7 @@ function ComplianceLogSheet({
   };
 
   return (
-    <SheetFrame isOpen={isOpen}>
+    <SheetFrame isOpen={isOpen} onClose={onClose}>
       <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <h2 className="text-[18px] font-bold leading-none">Log new entry</h2>
@@ -488,7 +494,7 @@ export default function CheckDetailPage() {
                 {check.title}
               </h1>
               <p className="mt-1 text-[13px] font-medium uppercase leading-none text-[#7A7A7A]">
-                {vehicle.name} &bull; {vehicle.registration}
+                {vehicle.name} &bull; {vehicle.registration || 'No plate'}
               </p>
             </div>
             <span
@@ -530,7 +536,7 @@ export default function CheckDetailPage() {
           <button
             aria-pressed={Boolean(check.reminderEnabled)}
             className={cn(
-              'relative h-[22px] w-[42px] rounded-full transition',
+              'relative h-[22px] w-[42px] rounded-full transition-colors duration-200 ease-out',
               check.reminderEnabled
                 ? 'bg-yellow-cta shadow-yellow'
                 : 'bg-[#B8B8B8]',
@@ -540,8 +546,8 @@ export default function CheckDetailPage() {
           >
             <span
               className={cn(
-                'absolute top-[2px] size-[18px] rounded-full bg-textPrimary transition',
-                check.reminderEnabled ? 'right-[2px]' : 'left-[2px]',
+                'absolute left-[2px] top-[2px] size-[18px] rounded-full bg-textPrimary transition-transform duration-200 ease-out',
+                check.reminderEnabled ? 'translate-x-[20px]' : 'translate-x-0',
               )}
             />
           </button>

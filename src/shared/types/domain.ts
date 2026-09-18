@@ -16,10 +16,11 @@ export type Vehicle = {
   make: string;
   model: string;
   year: number;
-  registration: string;
+  registration?: string;
   odometerKm: number;
   tyreSize: string;
   colour?: string;
+  photoUrl?: string;
   fuelType?: 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid';
   transmission?: 'Manual' | 'Automatic';
   status: Status;

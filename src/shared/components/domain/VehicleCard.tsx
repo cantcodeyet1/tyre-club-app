@@ -85,7 +85,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
               {vehicle.name}
             </p>
             <p className="mt-1 text-[14px] font-medium leading-none text-[#6F6F6F]">
-              {vehicle.registration} &bull; {vehicle.year}
+              {vehicle.registration || 'No plate'} &bull; {vehicle.year}
             </p>
           </div>
           <span

@@ -55,7 +55,7 @@ export function VehicleHeader({
             {vehicle.name}
           </h1>
           <p className="mt-1 text-[14px] font-medium uppercase leading-none text-[#7A7A7A]">
-            {vehicle.registration}
+            {vehicle.registration || 'No plate'}
           </p>
         </div>
         <div className="relative">

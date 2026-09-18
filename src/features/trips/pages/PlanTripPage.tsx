@@ -97,7 +97,7 @@ export default function PlanTripPage() {
                 {vehicles.length ? (
                   vehicles.map((vehicle) => (
                     <option key={vehicle.id} value={vehicle.id}>
-                      {vehicle.name} • {vehicle.registration}
+                      {vehicle.name} • {vehicle.registration || 'No plate'}
                     </option>
                   ))
                 ) : (

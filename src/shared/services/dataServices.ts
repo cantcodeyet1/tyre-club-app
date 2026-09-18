@@ -42,9 +42,10 @@ function toCreateVehiclePayload(
     make: input.make.trim(),
     model: input.model.trim(),
     year: normalizeNumber(input.year),
-    registration: input.registration.trim().toUpperCase(),
+    registration: input.registration?.trim().toUpperCase() || undefined,
     odometerKm: normalizeNumber(input.mileage),
     colour: input.colour?.trim() || undefined,
+    photoUrl: input.photoUrl || undefined,
     fuelType: input.fuelType,
     transmission: extra?.transmission,
     tyreSize: extra?.tyreSize?.trim() || undefined,
@@ -55,9 +56,10 @@ export type UpdateVehicleInput = {
   make: string;
   model: string;
   year: number;
-  registration: string;
+  registration?: string;
   odometerKm: number;
   colour?: string;
+  photoUrl?: string;
 };
 
 export const vehicleService = {

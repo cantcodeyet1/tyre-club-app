@@ -46,7 +46,7 @@ const vehicleSetupSchema = z.object({
 
     return year >= 1900 && year <= nextYear;
   }, 'Enter a valid year'),
-  registration: requiredText('Registration plate'),
+  registration: z.string().trim().optional(),
   mileage: positiveNumericText('Current mileage'),
   fuelType: z.enum(['Petrol', 'Diesel', 'Electric', 'Hybrid'], {
     error: 'Fuel type is required',
@@ -323,7 +323,7 @@ export default function VehicleSetupWizard() {
                 ) : null}
               </label>
               <label>
-                <FieldLabel required>Registration plate</FieldLabel>
+                <FieldLabel>Registration plate</FieldLabel>
                 <AuthInput
                   invalid={Boolean(errors.registration)}
                   placeholder="e.g. ABC 123"

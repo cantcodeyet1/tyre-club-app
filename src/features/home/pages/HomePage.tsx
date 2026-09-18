@@ -22,9 +22,9 @@ function DealBanner() {
         <p className="text-[20px] font-black leading-none">
           Rolling <span className="text-primary">Deals</span>
         </p>
-        <p className="mt-2 text-[13px] font-medium leading-none text-textPrimary">
+        <p className="mt-2 text-[13px] font-medium leading-none text-surface">
           Get{' '}
-          <span className="rounded-full bg-yellow-cta px-1 font-black">
+          <span className="rounded-full bg-yellow-cta px-1 font-black text-textPrimary">
             20%
           </span>{' '}
           off your first tyre fitment!
@@ -40,26 +40,37 @@ function DealBanner() {
   );
 }
 
-function VehiclePhoto({ good }: { good?: boolean }) {
+function VehiclePhoto({ good, photoUrl }: { good?: boolean; photoUrl?: string }) {
   return (
     <span
       className={`relative grid size-[82px] shrink-0 place-items-center overflow-hidden rounded-full border-[3px] ${
         good ? 'border-[#6FE83E]' : 'border-[#F04E4E]'
       } bg-[#E6E6E6]`}
     >
-      <span
-        className={`absolute inset-0 ${
-          good
-            ? 'bg-[linear-gradient(145deg,#BFD8FF_0%,#1F4FB8_55%,#0D2159_100%)]'
-            : 'bg-[linear-gradient(145deg,#D9D9D9_0%,#D43B35_50%,#1E1E1E_100%)]'
-        }`}
-      />
-      <CarFront
-        aria-hidden
-        className="relative z-10 text-surface drop-shadow"
-        size={46}
-        strokeWidth={2.4}
-      />
+      {photoUrl ? (
+        <img
+          alt=""
+          aria-hidden
+          className="absolute inset-0 size-full object-cover"
+          src={photoUrl}
+        />
+      ) : (
+        <>
+          <span
+            className={`absolute inset-0 ${
+              good
+                ? 'bg-[linear-gradient(145deg,#BFD8FF_0%,#1F4FB8_55%,#0D2159_100%)]'
+                : 'bg-[linear-gradient(145deg,#D9D9D9_0%,#D43B35_50%,#1E1E1E_100%)]'
+            }`}
+          />
+          <CarFront
+            aria-hidden
+            className="relative z-10 text-surface drop-shadow"
+            size={46}
+            strokeWidth={2.4}
+          />
+        </>
+      )}
     </span>
   );
 }
@@ -78,7 +89,7 @@ function HomeVehicleCard({ vehicle }: { vehicle: Vehicle }) {
             {vehicle.name}
           </h3>
           <p className="text-[14px] font-medium leading-none text-[#6F6F6F]">
-            {vehicle.registration}
+            {vehicle.registration || 'No plate'}
           </p>
 
           <p className="mt-5 max-w-[135px] text-[13px] font-bold leading-[1.05] text-textPrimary">
@@ -94,7 +105,7 @@ function HomeVehicleCard({ vehicle }: { vehicle: Vehicle }) {
           </p>
         </div>
 
-        <VehiclePhoto good={isGood} />
+        <VehiclePhoto good={isGood} photoUrl={vehicle.photoUrl} />
       </div>
 
       <div className="mt-3 flex items-end justify-between gap-3">

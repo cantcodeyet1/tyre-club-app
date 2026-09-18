@@ -72,10 +72,11 @@ model Vehicle {
   make          String
   model         String
   year          Int
-  registration  String
+  registration  String?
   odometerKm    Int
   tyreSize      String        @default("")
   colour        String?
+  photoUrl      String?
   fuelType      String?
   transmission  String?
   status        String        @default("neutral")

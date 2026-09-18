@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { markSplashSeen } from '../../../shared/utils/splashSeen';
+
 type SplashStep = {
   description: string;
   id: string;
@@ -126,6 +128,10 @@ export default function Splash() {
   const buttonLabel = isLast ? 'Get Started' : 'Next';
 
   const currentKey = useMemo(() => step.id, [step.id]);
+
+  useEffect(() => {
+    markSplashSeen();
+  }, []);
 
   useEffect(() => {
     if (!isBrand) {

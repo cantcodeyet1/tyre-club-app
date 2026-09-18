@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Camera } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ import { queryKeys } from '../../../shared/api/queryKeys';
 import { Input } from '../../../shared/components/primitives/Input';
 import { vehicleService } from '../../../shared/services/dataServices';
 import { cn } from '../../../shared/utils/cn';
+import { VehiclePhotoPicker } from '../components/VehiclePhotoPicker';
 import { VehicleChrome } from '../components/VehicleScreenChrome';
 import { addVehicleSchema, type AddVehicleValues } from '../schemas';
 
@@ -58,6 +58,7 @@ export default function AddVehiclePage() {
       make: '',
       mileage: '',
       model: '',
+      photoUrl: '',
       registration: '',
       year: '',
     },
@@ -65,6 +66,7 @@ export default function AddVehiclePage() {
     resolver: zodResolver(addVehicleSchema),
   });
   const selectedFuel = watch('fuelType');
+  const photoUrl = watch('photoUrl');
   const createVehicle = useMutation({
     mutationFn: (values: AddVehicleValues) => vehicleService.create(values),
     onSuccess: (vehicle) => {
@@ -88,25 +90,12 @@ export default function AddVehiclePage() {
           <h1 className="mb-3 text-[18px] font-bold leading-none">
             Vehicle photo
           </h1>
-          <button
-            className="grid h-[88px] w-full place-items-center rounded-[10px] bg-[#DEDEDE] text-center"
-            type="button"
-          >
-            <span>
-              <Camera
-                aria-hidden
-                className="mx-auto mb-1"
-                size={24}
-                strokeWidth={2.6}
-              />
-              <span className="block text-[14px] font-medium leading-none">
-                Add a photo of your vehicle
-              </span>
-              <span className="mt-1 block text-[12px] font-medium leading-none">
-                Optional - tap to upload
-              </span>
-            </span>
-          </button>
+          <VehiclePhotoPicker
+            value={photoUrl || undefined}
+            onChange={(dataUrl) =>
+              setValue('photoUrl', dataUrl ?? '', { shouldDirty: true })
+            }
+          />
         </section>
 
         <section className="mt-6 grid gap-3">

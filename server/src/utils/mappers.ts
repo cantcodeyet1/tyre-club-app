@@ -34,10 +34,11 @@ export function toVehicleDto(vehicle: PrismaVehicle) {
     make: vehicle.make,
     model: vehicle.model,
     year: vehicle.year,
-    registration: vehicle.registration,
+    registration: vehicle.registration ?? undefined,
     odometerKm: vehicle.odometerKm,
     tyreSize: vehicle.tyreSize,
     colour: vehicle.colour ?? undefined,
+    photoUrl: vehicle.photoUrl ?? undefined,
     fuelType: (vehicle.fuelType ?? undefined) as
       | 'Petrol'
       | 'Diesel'

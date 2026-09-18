@@ -54,10 +54,13 @@ vehiclesRouter.post(
         make: input.make.trim(),
         model: input.model.trim(),
         year: input.year,
-        registration: input.registration.trim().toUpperCase(),
+        registration: input.registration?.trim()
+          ? input.registration.trim().toUpperCase()
+          : undefined,
         odometerKm: input.odometerKm,
         tyreSize: input.tyreSize?.trim() || '265/65 R17',
         colour: input.colour?.trim() || undefined,
+        photoUrl: input.photoUrl || undefined,
         fuelType: input.fuelType,
         transmission: input.transmission ?? 'Automatic',
         status: 'good',
@@ -129,9 +132,16 @@ vehiclesRouter.patch(
         model,
         name: `${make} ${model}`,
         year: input.year,
-        registration: input.registration?.trim().toUpperCase(),
+        registration:
+          input.registration !== undefined
+            ? input.registration.trim()
+              ? input.registration.trim().toUpperCase()
+              : null
+            : undefined,
         odometerKm: input.odometerKm,
         colour: input.colour?.trim(),
+        photoUrl:
+          input.photoUrl !== undefined ? input.photoUrl || null : undefined,
         fuelType: input.fuelType,
         transmission: input.transmission,
         tyreSize: input.tyreSize?.trim(),

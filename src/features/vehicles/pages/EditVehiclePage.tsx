@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Camera, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { queryKeys } from '../../../shared/api/queryKeys';
 import { Modal } from '../../../shared/components/primitives/Modal';
 import { useVehicle } from '../../../shared/hooks/useAppData';
 import { vehicleService } from '../../../shared/services/dataServices';
+import { VehiclePhotoPicker } from '../components/VehiclePhotoPicker';
 import { VehicleChrome } from '../components/VehicleScreenChrome';
 
 import type { ReactNode } from 'react';
@@ -22,7 +23,8 @@ const editVehicleSchema = z.object({
     .trim()
     .refine((value) => Number.isFinite(Number(value)), 'Enter a valid year'),
   colour: z.string().trim().optional(),
-  registration: z.string().trim().min(1, 'Registration is required'),
+  registration: z.string().trim().optional(),
+  photoUrl: z.string().trim().optional(),
   mileage: z
     .string()
     .trim()
@@ -89,6 +91,8 @@ export default function EditVehiclePage() {
     handleSubmit,
     register,
     reset,
+    setValue,
+    watch,
   } = useForm<EditVehicleValues>({
     defaultValues: {
       make: '',
@@ -96,10 +100,12 @@ export default function EditVehiclePage() {
       year: '',
       colour: '',
       registration: '',
+      photoUrl: '',
       mileage: '',
     },
     resolver: zodResolver(editVehicleSchema),
   });
+  const photoUrl = watch('photoUrl');
 
   useEffect(() => {
     if (vehicle) {
@@ -108,7 +114,8 @@ export default function EditVehiclePage() {
         model: vehicle.model,
         year: String(vehicle.year),
         colour: vehicle.colour ?? '',
-        registration: vehicle.registration,
+        registration: vehicle.registration ?? '',
+        photoUrl: vehicle.photoUrl ?? '',
         mileage: String(vehicle.odometerKm),
       });
     }
@@ -120,9 +127,10 @@ export default function EditVehiclePage() {
         make: values.make.trim(),
         model: values.model.trim(),
         year: Number(values.year),
-        registration: values.registration.trim().toUpperCase(),
+        registration: values.registration?.trim().toUpperCase() || undefined,
         odometerKm: Number(values.mileage.replace(/\s/g, '')),
         colour: values.colour?.trim() || undefined,
+        photoUrl: values.photoUrl ?? '',
       }),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: queryKeys.vehicles });
@@ -154,25 +162,13 @@ export default function EditVehiclePage() {
           <h1 className="mb-3 text-[18px] font-bold leading-none">
             Vehicle photo
           </h1>
-          <button
-            className="grid h-[88px] w-full place-items-center rounded-[10px] bg-[#DEDEDE] text-center"
-            type="button"
-          >
-            <span>
-              <Camera
-                aria-hidden
-                className="mx-auto mb-1"
-                size={24}
-                strokeWidth={2.6}
-              />
-              <span className="block text-[14px] font-medium leading-none">
-                Update your vehicle photo
-              </span>
-              <span className="mt-1 block text-[12px] font-medium leading-none">
-                Optional - tap to upload
-              </span>
-            </span>
-          </button>
+          <VehiclePhotoPicker
+            label="Update your vehicle photo"
+            value={photoUrl || undefined}
+            onChange={(dataUrl) =>
+              setValue('photoUrl', dataUrl ?? '', { shouldDirty: true })
+            }
+          />
         </section>
 
         <section className="mt-6 grid gap-3">

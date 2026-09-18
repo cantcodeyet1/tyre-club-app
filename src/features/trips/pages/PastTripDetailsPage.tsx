@@ -80,7 +80,7 @@ export default function PastTripDetailsPage() {
                 <RouteTitle title={trip.title} />
               </h1>
               <p className="mt-2 text-[14px] font-medium uppercase leading-none text-[#777777]">
-                {vehicle ? `${vehicle.name} • ${vehicle.registration}` : '—'}
+                {vehicle ? `${vehicle.name} • ${vehicle.registration ?? 'No plate'}` : '—'}
               </p>
             </div>
             <span className="inline-flex h-[28px] items-center gap-2 rounded-full border border-[#65D845] bg-[#B9F7A2] px-3 text-[14px] font-medium leading-none">

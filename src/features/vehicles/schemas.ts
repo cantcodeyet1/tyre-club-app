@@ -17,13 +17,14 @@ const positiveNumericText = (label: string) =>
 
 export const addVehicleSchema = z.object({
   colour: z.string().trim().optional(),
+  photoUrl: z.string().trim().optional(),
   fuelType: z.enum(['Petrol', 'Diesel', 'Electric', 'Hybrid'], {
     error: 'Fuel type is required',
   }),
   make: requiredText('Make'),
   mileage: positiveNumericText('Current mileage'),
   model: requiredText('Model'),
-  registration: requiredText('Registration plate'),
+  registration: z.string().trim().optional(),
   year: numericText('Year').refine((value) => {
     const year = Number(value);
     const nextYear = new Date().getFullYear() + 1;

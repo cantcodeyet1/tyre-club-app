@@ -272,7 +272,7 @@ export function ChoicePill({
     <button
       aria-pressed={active}
       className={cn(
-        'h-[36px] rounded-[14px] border px-5 text-[13px] font-semibold',
+        'h-[36px] rounded-[14px] border px-5 text-[13px] font-semibold transition-all duration-150 ease-out active:scale-[0.96]',
         active
           ? 'border-textPrimary bg-surface text-textPrimary'
           : 'border-[#D8D8D8] bg-surface text-textTertiary',

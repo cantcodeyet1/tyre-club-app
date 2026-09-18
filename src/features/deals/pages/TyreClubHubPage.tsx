@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { LoadingState } from '../../../shared/components/primitives/LoadingState';
 import { useBranches } from '../../../shared/hooks/useAppData';
+import { whatsAppHref } from '../../../shared/utils/contact';
 import {
   DealsBackHeader,
   DealsPanel,
@@ -13,10 +14,6 @@ import type { Branch } from '../../../shared/types/domain';
 
 function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`;
-}
-
-function whatsAppHref(phone: string) {
-  return `https://wa.me/${phone.replace(/[^\d]/g, '')}`;
 }
 
 function directionsHref(address: string) {
@@ -76,7 +73,7 @@ function BranchItem({ branch, open }: { branch: Branch; open: boolean }) {
         </a>
         <a
           className="grid h-[34px] place-items-center rounded-full bg-[#6DD15F] text-[12px] font-bold text-surface"
-          href={whatsAppHref(branch.phone)}
+          href={whatsAppHref(`Hi, I have a question about the ${branch.name} branch.`)}
           rel="noreferrer"
           target="_blank"
         >

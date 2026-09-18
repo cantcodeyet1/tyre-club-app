@@ -15,7 +15,7 @@ export function VehicleSummaryCard({ vehicle }: { vehicle: Vehicle }) {
             {vehicle.name}
           </h2>
           <p className="font-mono text-[12px] text-surface/70">
-            {vehicle.registration}
+            {vehicle.registration || 'No plate'}
           </p>
         </div>
         <StatusPill status={vehicle.status} />

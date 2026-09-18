@@ -34,6 +34,13 @@ export default function SignUp() {
 
   async function onSubmit(values: SignUpFormValues) {
     setFormError(null);
+
+    if (!acceptedTerms) {
+      setFormError('Please accept the terms & policy to continue');
+
+      return;
+    }
+
     try {
       await registerUser(values);
       navigate('/notifications/permission', { replace: true });
@@ -62,17 +69,17 @@ export default function SignUp() {
 
   return (
     <AuthScreen>
-      <section className="px-[42px] pb-10 pt-[29px]">
+      <section className="px-[42px] pb-6 pt-[24px]">
         <div className="flex items-center justify-between">
           <DunlopExpressLogo className="text-[16px]" />
           <TyreClubLogo className="size-[42px]" />
         </div>
 
-        <h1 className="mt-12 text-[22px] font-black leading-tight">
+        <h1 className="mt-8 text-[22px] font-black leading-tight">
           Create your account
         </h1>
 
-        <form className="mt-6 grid gap-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5 grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <label>
             <FieldLabel>Name</FieldLabel>
             <AuthInput
@@ -146,17 +153,17 @@ export default function SignUp() {
           </AuthPrimaryButton>
         </form>
 
-        <p className="mt-6 text-center text-[13px] font-medium text-textTertiary">
+        <p className="mt-4 text-center text-[13px] font-medium text-textTertiary">
           or sign up with
         </p>
-        <div className="mt-5">
+        <div className="mt-3">
           <SocialButtons
             isGoogleLoading={isGoogleLoading}
             onGoogleClick={onGoogleClick}
           />
         </div>
 
-        <p className="mt-8 text-center text-[13px] font-medium text-textTertiary">
+        <p className="mt-5 text-center text-[13px] font-medium text-textTertiary">
           Have an account?{' '}
           <Link className="font-bold text-primary" to="/sign-in">
             SIGN IN

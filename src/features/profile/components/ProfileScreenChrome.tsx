@@ -71,14 +71,14 @@ export function ProfileToggle({
   onClick?: () => void;
 }) {
   const className = cn(
-    'relative block h-[24px] w-[46px] rounded-full disabled:opacity-60',
+    'relative block h-[24px] w-[46px] rounded-full transition-colors duration-200 ease-out disabled:opacity-60',
     enabled ? 'bg-yellow-cta shadow-yellow' : 'bg-[#9A9A9A]',
   );
   const thumb = (
     <span
       className={cn(
-        'absolute top-[3px] size-[18px] rounded-full bg-textPrimary transition',
-        enabled ? 'right-[3px]' : 'left-[3px] bg-surface',
+        'absolute left-[3px] top-[3px] size-[18px] rounded-full bg-textPrimary transition-transform duration-200 ease-out',
+        enabled ? 'translate-x-[22px]' : 'translate-x-0 bg-surface',
       )}
     />
   );

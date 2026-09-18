@@ -2,6 +2,7 @@ import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { cn } from '../../../shared/utils/cn';
+import { whatsAppHref } from '../../../shared/utils/contact';
 
 import type { ReactNode } from 'react';
 
@@ -84,20 +85,24 @@ export function DealsPrimaryButton({
 export function DealsWhatsAppButton({
   children = 'WhatsApp us',
   className,
+  message,
 }: {
   children?: ReactNode;
   className?: string;
+  message?: string;
 }) {
   return (
-    <button
+    <a
       className={cn(
-        'h-12 rounded-[10px] bg-[#6DD15F] text-[15px] font-bold text-surface',
+        'grid h-12 place-items-center rounded-[10px] bg-[#6DD15F] text-[15px] font-bold text-surface transition-transform active:scale-[0.98]',
         className,
       )}
-      type="button"
+      href={whatsAppHref(message)}
+      rel="noreferrer"
+      target="_blank"
     >
       {children}
-    </button>
+    </a>
   );
 }
 

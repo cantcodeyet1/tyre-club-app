@@ -139,7 +139,7 @@ export default function EditTripPage() {
               </h1>
             )}
             <p className="mt-6 text-[18px] font-bold leading-none text-[#8B8B8B]">
-              {vehicle ? `${vehicle.name} • ${vehicle.registration}` : '—'}
+              {vehicle ? `${vehicle.name} • ${vehicle.registration ?? 'No plate'}` : '—'}
             </p>
             {isEditing ? (
               <TripInput

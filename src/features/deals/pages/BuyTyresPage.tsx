@@ -54,7 +54,7 @@ export default function BuyTyresPage() {
       <div className="grid gap-4">
         <DealsPrimaryButton>Visit website</DealsPrimaryButton>
         <div className="grid grid-cols-2 gap-4">
-          <DealsWhatsAppButton />
+          <DealsWhatsAppButton message="Hi, I would like to know more about buying tyres." />
           <Link
             className="grid h-12 place-items-center rounded-[10px] border border-textPrimary bg-surface text-[15px] font-bold text-textPrimary"
             to="/tyre-club"

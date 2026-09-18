@@ -108,9 +108,9 @@ export default function DealsHubPage() {
           <p className="text-[18px] font-bold leading-none">
             Rolling <span className="text-primary">Deals</span>
           </p>
-          <p className="mt-2 text-[14px] font-medium leading-none text-[#111]">
+          <p className="mt-2 text-[14px] font-medium leading-none text-surface">
             Get{' '}
-            <span className="rounded-full bg-yellow-cta px-1 font-bold">
+            <span className="rounded-full bg-yellow-cta px-1 font-bold text-textPrimary">
               20%
             </span>{' '}
             off your first tyre fitment!

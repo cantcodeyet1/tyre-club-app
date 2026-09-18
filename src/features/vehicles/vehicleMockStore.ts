@@ -368,10 +368,11 @@ export const vehicleMockStore = {
       make: values.make.trim(),
       model: values.model.trim(),
       year: normalizeNumber(values.year),
-      registration: values.registration.trim().toUpperCase(),
+      registration: values.registration?.trim().toUpperCase() || undefined,
       odometerKm: normalizeNumber(values.mileage),
       tyreSize: extra?.tyreSize?.trim() || '265/65 R17',
       colour: values.colour?.trim(),
+      photoUrl: values.photoUrl,
       fuelType: values.fuelType,
       transmission: extra?.transmission ?? 'Automatic',
       status: 'good',
@@ -470,9 +471,10 @@ export const vehicleMockStore = {
       make: string;
       model: string;
       year: number;
-      registration: string;
+      registration?: string;
       odometerKm: number;
       colour?: string;
+      photoUrl?: string;
     },
   ) {
     const state = readState();
@@ -488,6 +490,8 @@ export const vehicleMockStore = {
         updated = {
           ...vehicle,
           ...values,
+          registration: values.registration || undefined,
+          photoUrl: values.photoUrl || undefined,
           name: `${values.make} ${values.model}`,
         };
 
